@@ -25,7 +25,14 @@ public class Players implements Runnable{
         switch(id){
             case 1:
                 g.setColor(Color.BLACK);
-                g.drawLine(x,y, x + (int)(10* Math.cos(Math.toRadians(angle))), y + (int)(10*Math.sin(Math.toRadians(angle))));
+//                g.drawLine(x-20, y-20, x+20, y-20);
+//                g.drawLine(x+20, y-20, x+20, y+20);
+//                g.drawLine(x-20, y-20, x-20, y+20);
+//                g.drawLine(x-20, y+20, x+20, y+20);
+                g.drawLine(x-(int)(20* Math.cos(Math.toRadians(angle))),
+                        y-(int)(20*Math.sin(Math.toRadians(angle))), 
+                        x + (int)(20* Math.cos(Math.toRadians(angle))), 
+                        y + (int)(20*Math.sin(Math.toRadians(angle))));
                 break;
             case 2:
                 break;
@@ -109,6 +116,12 @@ public class Players implements Runnable{
     
     public void move(){
         angle += rotation; //Multiply to speed up rotation
+        if(angle < 0){
+            angle += 360;
+        }
+        if(angle >360){
+            angle -= 360;
+        }
         x += 3*(direction*(Math.cos(Math.toRadians(angle)))); //Multiply to change speed
         y += 3*(direction*(Math.sin(Math.toRadians(angle)))); //
     }
@@ -118,7 +131,7 @@ public class Players implements Runnable{
         try{
             while(true){
                 move();
-                Thread.sleep(4);
+                Thread.sleep(10);
             }
         }catch(Exception e){System.err.println(e.getMessage());}
     }
