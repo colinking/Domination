@@ -24,7 +24,6 @@ package domination;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -35,8 +34,8 @@ public class Main extends JFrame{
     
     //Double Buffering to allow drawing of images bts
     Image dbImage;
-    Graphics2D dbg;
-    Graphics2D g2d;
+    Graphics dbg;
+    Graphics g;
     
     //Player One
     static Players p1 = new Players(100, 400, 1);
@@ -62,17 +61,17 @@ public class Main extends JFrame{
     }
     
     //Double Buffering
-//    @Override
-    public void paint(Graphics2D g2d){
-//        dbImage = createImage(getWidth(), getHeight());
-//        dbg = dbImage.getGraphics();
-//        draw(dbg);
-        g2d.drawImage(dbImage, 0, 0, this);
+    @Override
+    public void paint(Graphics g){
+        dbImage = createImage(getWidth(), getHeight());
+        dbg = dbImage.getGraphics();
+        draw(dbg);
+        g.drawImage(dbImage, 0, 0, this);
     }
     
-    public void draw(Graphics2D g2d){
-        p1.draw(g2d);
-        //p2.draw(g2d);
+    public void draw(Graphics g){
+        p1.draw(g);
+        //p2.draw(g);
         
         repaint();
     }

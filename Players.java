@@ -6,9 +6,8 @@
 package domination;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
-import java.awt.geom.Line2D;
 
 
 public class Players implements Runnable{
@@ -21,13 +20,12 @@ public class Players implements Runnable{
         this.id = id;
     }
     
-    public void draw(Graphics2D g2d){
+    public void draw(Graphics g){
         //Switch this to individual lines
         switch(id){
             case 1:
-                g2d.setColor(Color.BLACK);
-                //g2d.drawLine(x,y, x + (int)(40* Math.cos(Math.toRadians(angle))), y + (int)(40*Math.sin(Math.toRadians(angle))));
-                g2d.draw(new Line2D.Double(x,y, x + (40* Math.cos(Math.toRadians(angle))), y + (40*Math.sin(Math.toRadians(angle)))));
+                g.setColor(Color.BLACK);
+                g.drawLine(x,y, x + (int)(10* Math.cos(Math.toRadians(angle))), y + (int)(10*Math.sin(Math.toRadians(angle))));
                 break;
             case 2:
                 break;
@@ -45,11 +43,11 @@ public class Players implements Runnable{
                 }
                 if(e.getKeyCode() == e.VK_A){
                     //Rotate CCW
-                    rotation = 1;
+                    rotation = -1;
                 }
                 if(e.getKeyCode() == e.VK_D){
                     //Rotate CW
-                    rotation = -1;
+                    rotation = 1;
                 }
                 break;
             case 2:
@@ -110,9 +108,9 @@ public class Players implements Runnable{
 //    }
     
     public void move(){
-        angle += rotation;
-        x += (direction*(Math.sin(Math.toRadians(angle))));
-//        y += direction;
+        angle += rotation; //Multiply to speed up rotation
+        x += 3*(direction*(Math.cos(Math.toRadians(angle)))); //Multiply to change speed
+        y += 3*(direction*(Math.sin(Math.toRadians(angle)))); //
     }
     
     @Override
