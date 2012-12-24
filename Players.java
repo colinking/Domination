@@ -6,33 +6,31 @@
 package domination;
 
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.geom.Line2D;
 
 
 public class Players implements Runnable{
     
-    int x, y, id, angle, rotation, direction;
+    double x, y, angle;
+    int id, direction, rotation;
     
-    public Players(int x, int y, int id){
+    public Players(double x, double y, int id){
         this.x = x;
         this.y = y;
         this.id = id;
     }
     
-    public void draw(Graphics g){
+    public void draw(Graphics2D g){
         //Switch this to individual lines
         switch(id){
             case 1:
                 g.setColor(Color.BLACK);
-//                g.drawLine(x-20, y-20, x+20, y-20);
-//                g.drawLine(x+20, y-20, x+20, y+20);
-//                g.drawLine(x-20, y-20, x-20, y+20);
-//                g.drawLine(x-20, y+20, x+20, y+20);
-                g.drawLine(x-(int)(20* Math.cos(Math.toRadians(angle))),
-                        y-(int)(20*Math.sin(Math.toRadians(angle))), 
-                        x + (int)(20* Math.cos(Math.toRadians(angle))), 
-                        y + (int)(20*Math.sin(Math.toRadians(angle))));
+                g.draw(new Line2D.Double(x-(20* Math.cos(Math.toRadians(angle))),
+                        y-(20*Math.sin(Math.toRadians(angle))), 
+                        x + (20* Math.cos(Math.toRadians(angle))), 
+                        y + (20*Math.sin(Math.toRadians(angle)))));
                 break;
             case 2:
                 break;
@@ -122,8 +120,9 @@ public class Players implements Runnable{
         if(angle >360){
             angle -= 360;
         }
-        x += 3*(direction*(Math.cos(Math.toRadians(angle)))); //Multiply to change speed
-        y += 3*(direction*(Math.sin(Math.toRadians(angle)))); //
+        
+        x += (direction*(Math.cos(Math.toRadians(angle)))); //Multiply to change speed
+        y += (direction*(Math.sin(Math.toRadians(angle)))); //
     }
     
     @Override
@@ -131,7 +130,7 @@ public class Players implements Runnable{
         try{
             while(true){
                 move();
-                Thread.sleep(10);
+                Thread.sleep(5);
             }
         }catch(Exception e){System.err.println(e.getMessage());}
     }

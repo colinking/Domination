@@ -24,7 +24,7 @@ package domination;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
@@ -32,12 +32,9 @@ import javax.swing.JFrame;
 
 public class Main extends JFrame{
     
-    //Double Buffering to allow drawing of images bts
-    Image dbImage;
-    Graphics dbg;
-    Graphics g;
+    Graphics2D g2d;
     
-    //Player One
+    //Player One and Two
     static Players p1 = new Players(100, 400, 1);
     //static Players p2 = new Players(1050, 400, 2);
 
@@ -63,18 +60,13 @@ public class Main extends JFrame{
     //Double Buffering
     @Override
     public void paint(Graphics g){
-        dbImage = createImage(getWidth(), getHeight());
-        dbg = dbImage.getGraphics();
-        draw(dbg);
-        g.drawImage(dbImage, 0, 0, this);
-    }
-    
-    public void draw(Graphics g){
-        p1.draw(g);
-        //p2.draw(g);
-        
+        Graphics2D g2d = (Graphics2D)g;
+        g2d.setColor(Color.LIGHT_GRAY);
+        g2d.fillRect(0,0,1200,800);
+        p1.draw(g2d);
         repaint();
     }
+    
     ////////EVENT LISTENER CLASS////////
     public class AL extends KeyAdapter{
         
