@@ -7,19 +7,22 @@
  */
 
 /////Plans////
-//Rotating-Donee
-//Player Icon
 //Spawnpoints
 //Walls
+//Prevent from moving off the page
 //Bounding Boxs
 //Flags
 //Add points when within flags
 //Score
 //Timer
+//Pre-game timer
+//Explosions from collisions
 //Game Over Screen
 //Custom Player Icons
-//Main Window
+//Improve Main Window
 //Shooting
+//Health?
+//Fix Keyblocking
 //////////////
 
 package domination;
@@ -33,8 +36,6 @@ import javax.swing.JFrame;
 
 
 public class Main extends JFrame{
-    
-    Graphics2D g2d;
     
     //Player One and Two
     static Players p1 = new Players(100, 400, 1);
@@ -51,20 +52,19 @@ public class Main extends JFrame{
         this.addKeyListener(new AL());
     }
 
-    public static void main(String[] args) {
+    public static void go() {
         Main m = new Main();
         Thread player1 = new Thread(p1);
         player1.start();
-       // Thread player2 = new Thread(p2);
+       //Thread player2 = new Thread(p2);
         //player2.start();
     }
     
-    //Double Buffering
     @Override
     public void paint(Graphics g){
         Graphics2D g2d = (Graphics2D)g;
-//        g2d.setColor(Color.LIGHT_GRAY); //Comment out this line and the next
-//        g2d.fillRect(0,0,1200,800); //to become an artist
+        g2d.setColor(Color.LIGHT_GRAY);
+        g2d.fillRect(0,0,1200,800);
         p1.draw(g2d);
         repaint();
     }
