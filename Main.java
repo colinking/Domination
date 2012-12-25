@@ -7,7 +7,8 @@
  */
 
 /////Plans////
-//Rotating
+//Rotating-Donee
+//Player Icon
 //Spawnpoints
 //Walls
 //Bounding Boxs
@@ -16,7 +17,8 @@
 //Score
 //Timer
 //Game Over Screen
-//Better Player Icons
+//Custom Player Icons
+//Main Window
 //Shooting
 //////////////
 
@@ -61,8 +63,8 @@ public class Main extends JFrame{
     @Override
     public void paint(Graphics g){
         Graphics2D g2d = (Graphics2D)g;
-        g2d.setColor(Color.LIGHT_GRAY);
-        g2d.fillRect(0,0,1200,800);
+//        g2d.setColor(Color.LIGHT_GRAY); //Comment out this line and the next
+//        g2d.fillRect(0,0,1200,800); //to become an artist
         p1.draw(g2d);
         repaint();
     }

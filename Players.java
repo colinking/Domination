@@ -8,6 +8,7 @@ package domination;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 
 
@@ -26,12 +27,19 @@ public class Players implements Runnable{
         //Switch this to individual lines
         switch(id){
             case 1:
+                g.setColor(Color.GREEN);
+                g.fillOval((int)x-20,(int) y-20, 40, 40);
                 g.setColor(Color.BLACK);
-                g.draw(new Line2D.Double(x-(20* Math.cos(Math.toRadians(angle))),
-                        y-(20*Math.sin(Math.toRadians(angle))), 
-                        x + (20* Math.cos(Math.toRadians(angle))), 
-                        y + (20*Math.sin(Math.toRadians(angle)))));
-                break;
+                g.draw(new Ellipse2D.Double(x-20, y-20, 40, 40));
+                //The arrow squeezes inward because of pixels
+                g.draw(new Line2D.Double(x + (10*Math.cos(Math.toRadians(angle-20))), 
+                        y + (10*Math.sin(Math.toRadians(angle-8))), 
+                        x + (15*Math.cos(Math.toRadians(angle))), 
+                        y + (15*Math.sin(Math.toRadians(angle)))));
+                g.draw(new Line2D.Double(x + (10*Math.cos(Math.toRadians(angle+20))), 
+                        y + (10*Math.sin(Math.toRadians(angle+8))), 
+                        x + (15*Math.cos(Math.toRadians(angle))), 
+                        y + (15*Math.sin(Math.toRadians(angle)))));
             case 2:
                 break;
         }     
