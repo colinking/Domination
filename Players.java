@@ -130,7 +130,11 @@ public class Players implements Runnable{
         }
         
         x += (direction*(Math.cos(Math.toRadians(angle)))); //Multiply to change speed
-        y += (direction*(Math.sin(Math.toRadians(angle)))); //
+        if(x <= 20){ x = 20; }
+        if(x >= 1180){ x = 1180; }
+        y += (direction*(Math.sin(Math.toRadians(angle))));
+        if(y <= 40){ y = 40; }
+        if(y >= 780){ y = 780; }
     }
     
     @Override
