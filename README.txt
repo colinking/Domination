@@ -1,1 +1,0 @@
-The next step is to add pictures to the players and stop them from going out of bounds. This means that something will have to be implemented to stop the player from rotating if they are against a wall.
