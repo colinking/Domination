@@ -8,18 +8,17 @@
 
 /////Plans////
 //Spawnpoints
+//Player 2
 //Walls
-//Prevent from moving off the page
 //Bounding Boxs
 //Flags
 //Add points when within flags
-//Score
+//Score with Names
 //Timer
 //Pre-game timer
 //Explosions from collisions
 //Game Over Screen
 //Custom Player Icons
-//Improve Main Window
 //Shooting
 //Health?
 //Fix Keyblocking
@@ -46,7 +45,25 @@ public class Main extends JFrame{
         this.setSize(1200, 800);
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setBackground(Color.LIGHT_GRAY);
+        
+        //////////
+        
+        //Error on the line below when trying to run the getbackgroundColor
+        //since it can not become static, yet I can not make an object to run it
+        
+        //OnStart billybobjoe = new OnStart();
+        
+        //this.setBackground(OnStart.convertToColor(billybobjoe.getbackgroundColor()));
+        
+        //If I were to convert it to static
+        
+        //this.setBackground(OnStart.convertToColor(OnStart.getbackgroundColor()));
+        
+        //Use this line to see how it should work
+        this.setBackground(Color.lightGray);
+        
+        /////////
+        
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.addKeyListener(new AL());
@@ -56,7 +73,7 @@ public class Main extends JFrame{
         Main m = new Main();
         Thread player1 = new Thread(p1);
         player1.start();
-       //Thread player2 = new Thread(p2);
+        //Thread player2 = new Thread(p2);
         //player2.start();
     }
     
