@@ -16,6 +16,8 @@ public class Players implements Runnable{
     private int id, direction, rotation;
     private static String p1Color, p2Color;
     
+    public double getX(){return x;}
+    
     public Players(double x, double y, int id){
         this.x = x;
         this.y = y;
@@ -23,7 +25,6 @@ public class Players implements Runnable{
     }
     
     public void draw(Graphics2D g){
-        //Switch this to individual lines
         switch(id){
             case 1:
                 g.setColor(StartWindow.convertToColor(p1Color.toLowerCase()));
@@ -45,7 +46,6 @@ public class Players implements Runnable{
                 g.fillOval((int)x-20,(int) y-20, 40, 40);
                 g.setColor(Color.BLACK);
                 g.draw(new Ellipse2D.Double(x-20, y-20, 40, 40));
-                //The arrow squeezes inward because of pixels
                 g.draw(new Line2D.Double(x + (10*Math.cos(Math.toRadians(angle-200))), 
                         y + (10*Math.sin(Math.toRadians(angle-188))), 
                         x - (15*Math.cos(Math.toRadians(angle))), 
