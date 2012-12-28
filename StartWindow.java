@@ -83,6 +83,7 @@ public class StartWindow implements ItemListener{
                 GameFrame.go();
             }
         });
+        
         comboBoxPane.add(startGame);
         
         ////Card 1
