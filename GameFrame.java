@@ -36,6 +36,7 @@ public class GameFrame extends JFrame{
     private static Players p1 = new Players(100, 400, 1);
     private static Players p2 = new Players(1050, 400, 2);
     private static String bColor, p1Name, p2Name; //Names not used yet
+    private static boolean EasterEgg;
 
     public GameFrame(){
         this.setTitle("Domination");
@@ -59,16 +60,33 @@ public class GameFrame extends JFrame{
     @Override
     public void paint(Graphics g){
         Graphics2D g2d = (Graphics2D)g;
-        g2d.setColor(StartWindow.convertToColor(bColor.toLowerCase()));
-        g2d.fillRect(0,0,1200,800);
+        if(EasterEgg == false){
+            g2d.setColor(StartWindow.convertToColor(bColor.toLowerCase()));
+            g2d.fillRect(0,0,1200,800);
+        }
         p1.draw(g2d);
         p2.draw(g2d);
+//        checkBoundaries();
         repaint();
     }
     
     public static void setBColor(String bColor){GameFrame.bColor = bColor;}
     public static void setP1Name(String p1Name){GameFrame.p1Name = p1Name;}
     public static void setP2Name(String p2Name){GameFrame.p2Name = p2Name;}
+    public static void setEasterEgg(){
+        if(EasterEgg == true){
+            EasterEgg = false;
+        }else{
+            EasterEgg = true;
+        }
+    }
+    public static boolean getEasterEgg(){return EasterEgg;}
+    
+//    public static void checkBoundaries(){
+//        if(p1.getX() == p2.getX()){
+//            System.out.println("BOOM!");
+//        }
+//    }
     
     ////////EVENT LISTENER CLASS////////
     public class AL extends KeyAdapter{
