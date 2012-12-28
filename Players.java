@@ -5,17 +5,16 @@
 
 package domination;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.geom.*;
 
 
 public class Players implements Runnable{
     
-    double x, y, angle;
-    int id, direction, rotation;
+    private double x, y, angle;
+    private int id, direction, rotation;
+    private static String p1Color, p2Color;
     
     public Players(double x, double y, int id){
         this.x = x;
@@ -27,7 +26,7 @@ public class Players implements Runnable{
         //Switch this to individual lines
         switch(id){
             case 1:
-                g.setColor(Color.GREEN);
+                g.setColor(StartWindow.convertToColor(p1Color.toLowerCase()));
                 g.fillOval((int)x-20,(int) y-20, 40, 40);
                 g.setColor(Color.BLACK);
                 g.draw(new Ellipse2D.Double(x-20, y-20, 40, 40));
@@ -41,40 +40,53 @@ public class Players implements Runnable{
                         x + (15*Math.cos(Math.toRadians(angle))), 
                         y + (15*Math.sin(Math.toRadians(angle)))));
             case 2:
+                g.setColor(StartWindow.convertToColor(p2Color.toLowerCase()));
+                g.fillOval((int)x-20,(int) y-20, 40, 40);
+                g.setColor(Color.BLACK);
+                g.draw(new Ellipse2D.Double(x-20, y-20, 40, 40));
+                //The arrow squeezes inward because of pixels
+                g.draw(new Line2D.Double(x + (10*Math.cos(Math.toRadians(angle-20))), 
+                        y + (10*Math.sin(Math.toRadians(angle-8))), 
+                        x + (15*Math.cos(Math.toRadians(angle))), 
+                        y + (15*Math.sin(Math.toRadians(angle)))));
+                g.draw(new Line2D.Double(x + (10*Math.cos(Math.toRadians(angle+20))), 
+                        y + (10*Math.sin(Math.toRadians(angle+8))), 
+                        x + (15*Math.cos(Math.toRadians(angle))), 
+                        y + (15*Math.sin(Math.toRadians(angle)))));
                 break;
         }     
     }
-
+    
     public void keyPressed(KeyEvent e){
         switch(id){
             case 1:
-                if(e.getKeyCode() == e.VK_W){
+                if(e.getKeyCode() == KeyEvent.VK_W){
                     direction = 1;
                 }
-                if(e.getKeyCode() == e.VK_S){
+                if(e.getKeyCode() == KeyEvent.VK_S){
                     direction = -1;
                 }
-                if(e.getKeyCode() == e.VK_A){
+                if(e.getKeyCode() == KeyEvent.VK_A){
                     //Rotate CCW
                     rotation = -1;
                 }
-                if(e.getKeyCode() == e.VK_D){
+                if(e.getKeyCode() == KeyEvent.VK_D){
                     //Rotate CW
                     rotation = 1;
                 }
                 break;
             case 2:
-                if(e.getKeyCode() == e.VK_UP){
-                    
+                if(e.getKeyCode() == KeyEvent.VK_UP){
+                    direction = 1;
                 }
-                if(e.getKeyCode() == e.VK_DOWN){
-                    
+                if(e.getKeyCode() == KeyEvent.VK_DOWN){
+                    direction = -1;
                 }
-                if(e.getKeyCode() == e.VK_LEFT){
-                    
+                if(e.getKeyCode() == KeyEvent.VK_LEFT){
+                    rotation = -1;
                 }
-                if(e.getKeyCode() == e.VK_RIGHT){
-                    
+                if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+                    rotation = 1;
                 }
                 break;
         }
@@ -98,27 +110,23 @@ public class Players implements Runnable{
                 break;
             case 2:
                 if(e.getKeyCode() == KeyEvent.VK_UP){
-                    
+                    direction = 0;
                 }
                 if(e.getKeyCode() == KeyEvent.VK_DOWN){
-                    
+                    direction = 0;
                 }
                 if(e.getKeyCode() == KeyEvent.VK_LEFT){
-                    
+                    rotation = 0;
                 }
                 if(e.getKeyCode() == KeyEvent.VK_RIGHT){
-                    
+                    rotation = 0;
                 }
                 break;
         }
     }
     
-//    public void getDegree(int degree){
-//        this.degree = degree;
-//    }
-//    public void getDirection(int direction){
-//        this.direction = direction;
-//    }
+    public static void setP1Color(String p1Color){Players.p1Color = p1Color;}
+    public static void setP2Color(String p2Color){Players.p2Color = p2Color;}
     
     public void move(){
         angle += rotation; //Multiply to speed up rotation
