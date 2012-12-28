@@ -39,20 +39,21 @@ public class Players implements Runnable{
                         y + (10*Math.sin(Math.toRadians(angle+8))), 
                         x + (15*Math.cos(Math.toRadians(angle))), 
                         y + (15*Math.sin(Math.toRadians(angle)))));
+                break;
             case 2:
                 g.setColor(StartWindow.convertToColor(p2Color.toLowerCase()));
                 g.fillOval((int)x-20,(int) y-20, 40, 40);
                 g.setColor(Color.BLACK);
                 g.draw(new Ellipse2D.Double(x-20, y-20, 40, 40));
                 //The arrow squeezes inward because of pixels
-                g.draw(new Line2D.Double(x + (10*Math.cos(Math.toRadians(angle-20))), 
-                        y + (10*Math.sin(Math.toRadians(angle-8))), 
-                        x + (15*Math.cos(Math.toRadians(angle))), 
-                        y + (15*Math.sin(Math.toRadians(angle)))));
-                g.draw(new Line2D.Double(x + (10*Math.cos(Math.toRadians(angle+20))), 
-                        y + (10*Math.sin(Math.toRadians(angle+8))), 
-                        x + (15*Math.cos(Math.toRadians(angle))), 
-                        y + (15*Math.sin(Math.toRadians(angle)))));
+                g.draw(new Line2D.Double(x + (10*Math.cos(Math.toRadians(angle-200))), 
+                        y + (10*Math.sin(Math.toRadians(angle-188))), 
+                        x - (15*Math.cos(Math.toRadians(angle))), 
+                        y - (15*Math.sin(Math.toRadians(angle)))));
+                g.draw(new Line2D.Double(x + (10*Math.cos(Math.toRadians(angle+200))), 
+                        y + (10*Math.sin(Math.toRadians(angle+188))), 
+                        x - (15*Math.cos(Math.toRadians(angle))), 
+                        y - (15*Math.sin(Math.toRadians(angle)))));
                 break;
         }     
     }
@@ -77,10 +78,10 @@ public class Players implements Runnable{
                 break;
             case 2:
                 if(e.getKeyCode() == KeyEvent.VK_UP){
-                    direction = 1;
+                    direction = -1;
                 }
                 if(e.getKeyCode() == KeyEvent.VK_DOWN){
-                    direction = -1;
+                    direction = 1;
                 }
                 if(e.getKeyCode() == KeyEvent.VK_LEFT){
                     rotation = -1;
