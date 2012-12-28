@@ -31,7 +31,6 @@ public class StartWindow implements ItemListener{
         playerTwoColorMenu = new JComboBox(colors);
         playerTwoTextField = new JTextField("Player 2", 10);
         cards = new JPanel(new CardLayout());
-        
     }
     
     public void addComponent(Container pane) {
@@ -39,12 +38,32 @@ public class StartWindow implements ItemListener{
         comboBoxPane.setPreferredSize(new Dimension(100,80));
         comboBoxPane.setBackground(Color.green);
         
-        String comboBoxItems[] = { "Background", "Player 1", "Player 2" };
-        
         JLabel text = new JLabel(" --   DOMINATION   -- ");
         comboBoxPane.add(text);
-        JLabel text2 = new JLabel(" - Made by: Colin King - ");
+        JLabel text2 = new JLabel("  - Made by: Colin King -  ");
         comboBoxPane.add(text2);
+        text2.addMouseListener(new MouseListener(){
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                GameFrame.setEasterEgg();
+                if(GameFrame.getEasterEgg() == true){
+                    System.out.println("Easter Egg on.");
+                } else{
+                    System.out.println("Easter Egg off.");
+                }
+            }
+            @Override
+            public void mousePressed(MouseEvent me) {}
+            @Override
+            public void mouseReleased(MouseEvent me) {}
+            @Override
+            public void mouseEntered(MouseEvent me) {}
+            @Override
+            public void mouseExited(MouseEvent me) {}
+        });
+        
+        
+        String comboBoxItems[] = { "Background", "Player 1", "Player 2" };
         
         cb = new JComboBox(comboBoxItems);
         cb.setEditable(false);
@@ -193,7 +212,8 @@ public class StartWindow implements ItemListener{
         }else if(color.equals("white")){
             return Color.white;
         }else{
-            return null;
+            //i believe this works?
+            throw new NullPointerException("Not a selectable color.");
         }  
     }
 }
