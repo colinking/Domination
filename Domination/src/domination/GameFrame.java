@@ -28,7 +28,6 @@ package domination;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
@@ -65,7 +64,7 @@ public class GameFrame extends JFrame{
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.addKeyListener(new AL());
-        this.createBufferStrategy(2);
+//        this.createBufferStrategy(2);
         timer = new Timer(1, 
                 new ActionListener(){
                     @Override

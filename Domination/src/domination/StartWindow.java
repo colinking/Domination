@@ -32,7 +32,6 @@ public class StartWindow implements ItemListener{
         playerTwoTextField = new JTextField("Player 2", 10);
         cards = new JPanel(new CardLayout());
     }
-    //getRootPane().setDefaultButton(button1);
     
     public void addComponent(Container pane) {
         

@@ -174,7 +174,7 @@ public class Players implements Runnable{
         try{
             while(true){
                 move();
-                Thread.sleep(5);
+                Thread.sleep(3);
             }
         }catch(Exception e){System.err.println(e.getMessage());}
     }
