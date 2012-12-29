@@ -32,6 +32,7 @@ public class StartWindow implements ItemListener{
         playerTwoTextField = new JTextField("Player 2", 10);
         cards = new JPanel(new CardLayout());
     }
+    //getRootPane().setDefaultButton(button1);
     
     public void addComponent(Container pane) {
         
@@ -71,6 +72,7 @@ public class StartWindow implements ItemListener{
         comboBoxPane.add(cb);
         
         JButton startGame = new JButton("Start Game!");
+        
         startGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -85,7 +87,7 @@ public class StartWindow implements ItemListener{
         });
         
         comboBoxPane.add(startGame);
-        
+        frame.getRootPane().setDefaultButton(startGame);
         ////Card 1
         backgroundColorMenu.setSelectedItem("Light Gray");
         card1.add(backgroundColorMenu);
@@ -214,7 +216,7 @@ public class StartWindow implements ItemListener{
             return Color.white;
         }else{
             //i believe this works?
-            throw new NullPointerException("Not a selectable color.");
+            throw new NullPointerException("Color Type Error");
         }  
     }
 }

@@ -20,14 +20,17 @@
 //Game Over Screen
 //Shooting
 //Health?
-//Fix Keyblocking
+//Fix Keyblocking -> KeyBinding
+//Overall Customiztion (Player speed, rotation speed, etc.)
 /////////////
 
 package domination;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
+import javax.swing.Timer;
 
 
 public class GameFrame extends JFrame{
@@ -37,39 +40,9 @@ public class GameFrame extends JFrame{
     private static Players p2 = new Players(1050, 400, 2);
     private static String bColor, p1Name, p2Name; //Names not used yet
     private static boolean EasterEgg;
-
-    public GameFrame(){
-        this.setTitle("Domination");
-        this.setSize(1200, 800);
-        this.setResizable(false);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setBackground(StartWindow.convertToColor(bColor.toLowerCase()));
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
-        this.addKeyListener(new AL());
-    }
-
-    public static void go() {
-        GameFrame m = new GameFrame();
-        Thread player1 = new Thread(p1);
-        player1.start();
-        Thread player2 = new Thread(p2);
-        player2.start();
-    }
+    private Timer timer;
     
-    @Override
-    public void paint(Graphics g){
-        Graphics2D g2d = (Graphics2D)g;
-        if(EasterEgg == false){
-            g2d.setColor(StartWindow.convertToColor(bColor.toLowerCase()));
-            g2d.fillRect(0,0,1200,800);
-        }
-        p1.draw(g2d);
-        p2.draw(g2d);
-//        checkBoundaries();
-        repaint();
-    }
-    
+    //Getters & Setters
     public static void setBColor(String bColor){GameFrame.bColor = bColor;}
     public static void setP1Name(String p1Name){GameFrame.p1Name = p1Name;}
     public static void setP2Name(String p2Name){GameFrame.p2Name = p2Name;}
@@ -81,12 +54,61 @@ public class GameFrame extends JFrame{
         }
     }
     public static boolean getEasterEgg(){return EasterEgg;}
+
+    //Constructor
+    public GameFrame(){
+        this.setTitle("Domination");
+        this.setSize(1200, 800);
+        this.setResizable(false);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setBackground(StartWindow.convertToColor(bColor.toLowerCase()));
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+        this.addKeyListener(new AL());
+        this.createBufferStrategy(2);
+        timer = new Timer(1, 
+                new ActionListener(){
+                    @Override
+                        public void actionPerformed(ActionEvent ae) {
+                            repaint();
+                        }
+                });
+        timer.setInitialDelay(0);
+        timer.start();
+    }
+
+    //Main method of GameFrame class
+    public static void go() {
+        GameFrame m = new GameFrame();
+        Thread player1 = new Thread(p1);
+        player1.start();
+        Thread player2 = new Thread(p2);
+        player2.start();
+    }
     
-//    public static void checkBoundaries(){
-//        if(p1.getX() == p2.getX()){
-//            System.out.println("BOOM!");
+    @Override
+    public void paint(Graphics g){
+//        Graphics2D g2d = (Graphics2D)g;
+        Image bfImage = createImage(1200, 800);
+        Graphics2D bfg = (Graphics2D) bfImage.getGraphics();
+//        if(EasterEgg == false){
+//            g2d.setColor(StartWindow.convertToColor(bColor.toLowerCase()));
+//            g2d.fillRect(0,0,1200,800);
 //        }
-//    }
+        p1.draw(bfg);
+        p2.draw(bfg);
+        checkBoundaries(bfg);
+        g.drawImage(bfImage, 0, 0, this);
+    }
+    
+    public static void checkBoundaries(Graphics2D g2d){
+        double distance = Math.sqrt(Math.pow(p1.getX() - p2.getX(), 2) + Math.pow(p1.getY() - p2.getY(), 2));
+        if(distance <= 40){
+            System.out.println("KA-BLOOIE!");
+            p1.die();
+            p2.die();
+        }
+    }
     
     ////////EVENT LISTENER CLASS////////
     public class AL extends KeyAdapter{

@@ -13,16 +13,23 @@ import java.awt.geom.*;
 
 public class Players implements Runnable{
     
-    private double x, y, angle;
+    private double x, y, angle, spawnX, spawnY;
     private int id, direction, rotation;
+    private boolean right, left, up, down;
     private static String p1Color, p2Color;
     
     public double getX(){return x;}
+    public double getY(){return y;}
     
     public Players(double x, double y, int id){
-        this.x = x;
-        this.y = y;
+        this.x = spawnX = x;
+        this.y = spawnY = y;
         this.id = id;
+        right = false;
+        left = false;
+        up = false;
+        down = false;
+        if(id == 2){angle = 180;}
     }
     
     public void draw(Graphics2D g){
@@ -47,81 +54,83 @@ public class Players implements Runnable{
                 g.fillOval((int)x-20,(int) y-20, 40, 40);
                 g.setColor(Color.BLACK);
                 g.draw(new Ellipse2D.Double(x-20, y-20, 40, 40));
-                g.draw(new Line2D.Double(x + (10*Math.cos(Math.toRadians(angle-200))), 
-                        y + (10*Math.sin(Math.toRadians(angle-188))), 
-                        x - (15*Math.cos(Math.toRadians(angle))), 
-                        y - (15*Math.sin(Math.toRadians(angle)))));
-                g.draw(new Line2D.Double(x + (10*Math.cos(Math.toRadians(angle+200))), 
-                        y + (10*Math.sin(Math.toRadians(angle+188))), 
-                        x - (15*Math.cos(Math.toRadians(angle))), 
-                        y - (15*Math.sin(Math.toRadians(angle)))));
+                g.draw(new Line2D.Double(x + (10*Math.cos(Math.toRadians(angle-20))), 
+                        y + (10*Math.sin(Math.toRadians(angle-8))), 
+                        x + (15*Math.cos(Math.toRadians(angle))), 
+                        y + (15*Math.sin(Math.toRadians(angle)))));
+                g.draw(new Line2D.Double(x + (10*Math.cos(Math.toRadians(angle+20))), 
+                        y + (10*Math.sin(Math.toRadians(angle+8))), 
+                        x + (15*Math.cos(Math.toRadians(angle))), 
+                        y + (15*Math.sin(Math.toRadians(angle)))));
                 break;
         }     
     }
     
     public void keyPressed(KeyEvent e){
+        int key = e.getKeyCode();
         switch(id){
             case 1:
-                if(e.getKeyCode() == KeyEvent.VK_W){
-                    direction = 1;
+                if(key == KeyEvent.VK_W){
+                    up = true;
                 }
-                if(e.getKeyCode() == KeyEvent.VK_S){
-                    direction = -1;
+                if(key == KeyEvent.VK_S){
+                    down = true;
                 }
-                if(e.getKeyCode() == KeyEvent.VK_A){
+                if(key == KeyEvent.VK_A){
                     //Rotate CCW
-                    rotation = -1;
+                    left = true;
                 }
-                if(e.getKeyCode() == KeyEvent.VK_D){
+                if(key == KeyEvent.VK_D){
                     //Rotate CW
-                    rotation = 1;
+                    right = true;
                 }
                 break;
             case 2:
-                if(e.getKeyCode() == KeyEvent.VK_UP){
-                    direction = -1;
+                if(key == KeyEvent.VK_UP){
+                    up = true;
                 }
-                if(e.getKeyCode() == KeyEvent.VK_DOWN){
-                    direction = 1;
+                if(key == KeyEvent.VK_DOWN){
+                    down = true;
                 }
-                if(e.getKeyCode() == KeyEvent.VK_LEFT){
-                    rotation = -1;
+                if(key == KeyEvent.VK_LEFT){
+                    left = true;
                 }
-                if(e.getKeyCode() == KeyEvent.VK_RIGHT){
-                    rotation = 1;
+                if(key == KeyEvent.VK_RIGHT){
+                    right = true;
                 }
                 break;
         }
     }
     
     public void keyReleased(KeyEvent e){
+        int key = e.getKeyCode();
         switch(id){
             case 1:
-                if(e.getKeyCode() == KeyEvent.VK_W){
-                    direction = 0;
+                if(key == KeyEvent.VK_W){
+                    up = false;
                 }
-                if(e.getKeyCode() == KeyEvent.VK_S){
-                    direction = 0;
+                if(key == KeyEvent.VK_S){
+                    down = false;
                 }
-                if(e.getKeyCode() == KeyEvent.VK_A){
-                    rotation = 0;
+                if(key == KeyEvent.VK_A){
+                    left = false;
                 }
-                if(e.getKeyCode() == KeyEvent.VK_D){
-                    rotation = 0;
+                if(key == KeyEvent.VK_D){
+                    right = false;
                 }
                 break;
             case 2:
-                if(e.getKeyCode() == KeyEvent.VK_UP){
-                    direction = 0;
+                if(key == KeyEvent.VK_UP){
+                    up = false;
                 }
-                if(e.getKeyCode() == KeyEvent.VK_DOWN){
-                    direction = 0;
+                if(key == KeyEvent.VK_DOWN){
+                    down = false;
                 }
-                if(e.getKeyCode() == KeyEvent.VK_LEFT){
-                    rotation = 0;
+                if(key == KeyEvent.VK_LEFT){
+                    left = false;
                 }
-                if(e.getKeyCode() == KeyEvent.VK_RIGHT){
-                    rotation = 0;
+                if(key == KeyEvent.VK_RIGHT){
+                    right = false;
                 }
                 break;
         }
@@ -131,6 +140,14 @@ public class Players implements Runnable{
     public static void setP2Color(String p2Color){Players.p2Color = p2Color;}
     
     public void move(){
+        if(up == true && down == false){direction = 1;}
+        if(up == true && down == true || up == false && down == false){direction = 0;}
+        if(up == false && down == true){direction = -1;}
+        
+        if(right == true && left == false){rotation = 1;}
+        if(right == false && left == false || right == true && left == true){rotation = 0;}
+        if(right == false && left == true){rotation = -1;}
+        
         angle += rotation; //Multiply to speed up rotation
         if(angle < 0){
             angle += 360;
@@ -145,6 +162,11 @@ public class Players implements Runnable{
         y += (direction*(Math.sin(Math.toRadians(angle))));
         if(y <= 40){ y = 40; }
         if(y >= 780){ y = 780; }
+    }
+    
+    public void die(){
+            x = spawnX;
+            y = spawnY;
     }
     
     @Override
