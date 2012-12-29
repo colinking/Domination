@@ -66,15 +66,15 @@ public class GameFrame extends JFrame{
         this.setVisible(true);
         this.addKeyListener(new AL());
 //        this.createBufferStrategy(2);
-        timer = new Timer(1, 
-                new ActionListener(){
-                    @Override
-                        public void actionPerformed(ActionEvent ae) {
-                            repaint();
-                        }
-                });
-        timer.setInitialDelay(0);
-        timer.start();
+//        timer = new Timer(1, 
+//                new ActionListener(){
+//                    @Override
+//                        public void actionPerformed(ActionEvent ae) {
+//                            repaint();
+//                        }
+//                });
+//        timer.setInitialDelay(0);
+//        timer.start();
         System.out.println("Start");
         }
     }
@@ -101,6 +101,7 @@ public class GameFrame extends JFrame{
         p2.draw(bfg);
         checkBoundaries(bfg);
         g.drawImage(bfImage, 0, 0, this);
+        repaint();
     }
     
     public static void checkBoundaries(Graphics2D g2d){
@@ -110,10 +111,6 @@ public class GameFrame extends JFrame{
             p1.die();
             p2.die();
         }
-    }
-    
-    public void doRepaint(){
-        repaint();
     }
     
     ////////EVENT LISTENER CLASS////////
