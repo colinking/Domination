@@ -162,6 +162,8 @@ public class Players implements Runnable{
         y += (direction*(Math.sin(Math.toRadians(angle))));
         if(y <= 40){ y = 40; }
         if(y >= 780){ y = 780; }
+        GameFrame go = new GameFrame(false);
+        go.repaint();
     }
     
     public void die(){

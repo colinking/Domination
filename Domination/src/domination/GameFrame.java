@@ -55,7 +55,8 @@ public class GameFrame extends JFrame{
     public static boolean getEasterEgg(){return EasterEgg;}
 
     //Constructor
-    public GameFrame(){
+    public GameFrame(boolean shouldRun){
+        if(shouldRun == true){
         this.setTitle("Domination");
         this.setSize(1200, 800);
         this.setResizable(false);
@@ -74,11 +75,13 @@ public class GameFrame extends JFrame{
                 });
         timer.setInitialDelay(0);
         timer.start();
+        System.out.println("Start");
+        }
     }
 
     //Main method of GameFrame class
     public static void go() {
-        GameFrame m = new GameFrame();
+        GameFrame m = new GameFrame(true);
         Thread player1 = new Thread(p1);
         player1.start();
         Thread player2 = new Thread(p2);
@@ -107,6 +110,10 @@ public class GameFrame extends JFrame{
             p1.die();
             p2.die();
         }
+    }
+    
+    public void doRepaint(){
+        repaint();
     }
     
     ////////EVENT LISTENER CLASS////////
