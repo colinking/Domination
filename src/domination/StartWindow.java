@@ -202,7 +202,7 @@ public class StartWindow implements ItemListener{
         go.addComponent(frame.getContentPane());
         frame.pack();
         frame.setLocationRelativeTo(null);
-//        frame.setResizable(false);
+        frame.setResizable(false);
         frame.setVisible(true);
     }
     
