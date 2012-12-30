@@ -13,8 +13,8 @@ import javax.swing.*;
 public class StartWindow implements ItemListener{
     
     private static JFrame frame;
-    private JPanel cards, comboBoxPane, card1, card2, card3;
-    private JTextField playerOneTextField, playerTwoTextField;
+    private JPanel cards, comboBoxPane, card1, card2, card3, card4, card5, card6, card7;
+    private JTextField playerOneTextField, playerTwoTextField, playerSpeedText, shotSpeedText, rotationSpeedText, numberShotsText;
     private JComboBox playerOneColorMenu, backgroundColorMenu, playerTwoColorMenu, cb;
     private String playerOneName, playerOneColor, playerTwoName, playerTwoColor, backgroundColor;
     
@@ -23,6 +23,10 @@ public class StartWindow implements ItemListener{
         card1 = new JPanel();
         card2 = new JPanel();
         card3 = new JPanel();
+        card4 = new JPanel();
+        card5 = new JPanel();
+        card6 = new JPanel();
+        card7 = new JPanel();
         frame = new JFrame("Welcome");
         String colors[] = {"Pink", "Cyan", "Light Gray", "Black", "Gray", "Yellow", "Blue", "Green", "Dark Gray", "Magenta", "Orange", "Red", "White"};
         backgroundColorMenu = new JComboBox(colors);
@@ -30,6 +34,10 @@ public class StartWindow implements ItemListener{
         playerOneColorMenu = new JComboBox(colors);
         playerTwoColorMenu = new JComboBox(colors);
         playerTwoTextField = new JTextField("Player 2", 10);
+        playerSpeedText = new JTextField(".5", 4);
+        shotSpeedText = new JTextField("2", 4);
+        rotationSpeedText = new JTextField(".25", 4);
+        numberShotsText = new JTextField("3", 4);
         cards = new JPanel(new CardLayout());
     }
     
@@ -42,28 +50,8 @@ public class StartWindow implements ItemListener{
         comboBoxPane.add(text);
         JLabel text2 = new JLabel("  - Made by: Colin King -  ");
         comboBoxPane.add(text2);
-        text2.addMouseListener(new MouseListener(){
-            @Override
-            public void mouseClicked(MouseEvent me) {
-                GameFrame.setEasterEgg();
-                if(GameFrame.getEasterEgg() == true){
-                    System.out.println("Easter Egg on.");
-                } else{
-                    System.out.println("Easter Egg off.");
-                }
-            }
-            @Override
-            public void mousePressed(MouseEvent me) {}
-            @Override
-            public void mouseReleased(MouseEvent me) {}
-            @Override
-            public void mouseEntered(MouseEvent me) {}
-            @Override
-            public void mouseExited(MouseEvent me) {}
-        });
         
-        
-        String comboBoxItems[] = { "Background", "Player 1", "Player 2" };
+        String comboBoxItems[] = { "Background", "Player 1", "Player 2", "Player Speed", "Rot. Speed", "Shot Speed", "# of Shots" };
         
         cb = new JComboBox(comboBoxItems);
         cb.setEditable(false);
@@ -80,6 +68,10 @@ public class StartWindow implements ItemListener{
                 Players.setP1Color((String)playerOneColorMenu.getSelectedItem());
                 Players.setP2Color((String)playerTwoColorMenu.getSelectedItem());
                 GameFrame.setBColor((String)backgroundColorMenu.getSelectedItem());
+                Players.setPlayerSpeed(Double.parseDouble(playerSpeedText.getText()));
+                Players.setRotationSpeed(Double.parseDouble(rotationSpeedText.getText()));
+                Shots.setShotSpeed(Double.parseDouble(shotSpeedText.getText()));
+                Players.setNumberShots(Integer.parseInt(numberShotsText.getText()));
                 frame.dispose();
                 GameFrame.go();
             }
@@ -161,9 +153,37 @@ public class StartWindow implements ItemListener{
         });
         ////End of Card 3
         
+        
+        //Speed of players, speed of bullets, number of bullets on screen, rotation speed
+        
+        ////Card 4
+        JLabel playerSpeed = new JLabel();
+        card4.add(playerSpeed);
+        card4.setBackground(Color.lightGray);
+        card4.add(playerSpeedText);
+        
+        JLabel rotationSpeed = new JLabel();
+        card5.add(rotationSpeed);
+        card5.setBackground(Color.lightGray);
+        card5.add(rotationSpeedText);
+        
+        JLabel shotSpeed = new JLabel();
+        card6.add(shotSpeed);
+        card6.setBackground(Color.lightGray);
+        card6.add(shotSpeedText);
+        
+        JLabel numberShots = new JLabel();
+        card7.add(numberShots);
+        card7.setBackground(Color.lightGray);
+        card7.add(numberShotsText);
+        
         cards.add(card1, "Background");
         cards.add(card2, "Player 1");
         cards.add(card3, "Player 2");
+        cards.add(card4, "Player Speed");
+        cards.add(card5, "Rotation Speed");
+        cards.add(card6, "Shot Speed");
+        cards.add(card7, "Number of Shots");
          
         pane.add(comboBoxPane, BorderLayout.PAGE_START);
         pane.add(cards, BorderLayout.CENTER);
@@ -182,7 +202,7 @@ public class StartWindow implements ItemListener{
         go.addComponent(frame.getContentPane());
         frame.pack();
         frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
+//        frame.setResizable(false);
         frame.setVisible(true);
     }
     
@@ -214,7 +234,6 @@ public class StartWindow implements ItemListener{
         }else if(color.equals("white")){
             return Color.white;
         }else{
-            //i believe this works?
             throw new NullPointerException("Color Type Error");
         }  
     }

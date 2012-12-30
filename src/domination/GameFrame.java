@@ -29,7 +29,6 @@ package domination;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.JFrame;
-import javax.swing.Timer;
 
 
 public class GameFrame extends JFrame{
@@ -37,22 +36,26 @@ public class GameFrame extends JFrame{
     //Player One and Two
     private static Players p1 = new Players(100, 400, 1);
     private static Players p2 = new Players(1050, 400, 2);
-    private static String bColor, p1Name, p2Name; //Names not used yet
-    private static boolean EasterEgg;
-    private Timer timer;
+    private static String bColor, p1Name, p2Name;
+    private static double shotSpeed, numberShots;
     
     //Getters & Setters
     public static void setBColor(String bColor){GameFrame.bColor = bColor;}
     public static void setP1Name(String p1Name){GameFrame.p1Name = p1Name;}
     public static void setP2Name(String p2Name){GameFrame.p2Name = p2Name;}
-    public static void setEasterEgg(){
-        if(EasterEgg == true){
-            EasterEgg = false;
-        }else{
-            EasterEgg = true;
-        }
+    public static String getName(int id){
+        if(id == 1){return p1Name;}else{return p2Name;}
     }
-    public static boolean getEasterEgg(){return EasterEgg;}
+    public static String getOtherName(int id){
+        if(id == 1){return p2Name;}else{return p1Name;}
+    }
+    
+    public static Players getPlayer(int id){
+        if(id == 1){return p1;}else{return p2;}
+    }
+    public static Players getOtherPlayer(int id){
+        if(id == 1){return p2;}else{return p1;}
+    }
 
     //Constructor
     public GameFrame(boolean shouldRun){
@@ -65,16 +68,6 @@ public class GameFrame extends JFrame{
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.addKeyListener(new AL());
-//        this.createBufferStrategy(2);
-//        timer = new Timer(1, 
-//                new ActionListener(){
-//                    @Override
-//                        public void actionPerformed(ActionEvent ae) {
-//                            repaint();
-//                        }
-//                });
-//        timer.setInitialDelay(0);
-//        timer.start();
         System.out.println("Start");
         }
     }
@@ -90,13 +83,8 @@ public class GameFrame extends JFrame{
     
     @Override
     public void paint(Graphics g){
-//        Graphics2D g2d = (Graphics2D)g;
         Image bfImage = createImage(1200, 800);
         Graphics2D bfg = (Graphics2D) bfImage.getGraphics();
-//        if(EasterEgg == false){
-//            g2d.setColor(StartWindow.convertToColor(bColor.toLowerCase()));
-//            g2d.fillRect(0,0,1200,800);
-//        }
         p1.draw(bfg);
         p2.draw(bfg);
         checkBoundaries(bfg);
@@ -107,7 +95,6 @@ public class GameFrame extends JFrame{
     public static void checkBoundaries(Graphics2D g2d){
         double distance = Math.sqrt(Math.pow(p1.getX() - p2.getX(), 2) + Math.pow(p1.getY() - p2.getY(), 2));
         if(distance <= 40){
-            System.out.println("KA-BLOOIE!");
             p1.die();
             p2.die();
         }
