@@ -1,0 +1,37 @@
+Changelog and Buglist:
+
+--------1.1.0---------
+January.1.2013
+
+===Features
+-keyblocking has been improved though only minimally
+
+===Bugs
+-6 key cap on registering, try pressing 7 keys down, then lifting one and watch as it registers the others
+-d is not being measured from the opposing player but from p1, they seem to be running both parts of the switch statement 
+
+--------1.0.0---------
+
+December.29.2012
+
+===Features
+-added shooting
+-added names when killed
+-new Shot class
+-new GameBoard class
+-4 new settings for speeds
+-.jar will launch file on double click
+
+-removed Easter Egg
+
+===Bugs
+-hits are often not registered
+X-keyblocking is causing major problems
+ since it can only register ~3
+ keys at a time
+-still laggier then I would prefer
+X-number of shots is being set to 
+ zero from the constructor so it is
+ currently disabled
+X-the new cards are not opening up
+-speeds could use tweaking

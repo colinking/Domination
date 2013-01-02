@@ -17,6 +17,7 @@ public class StartWindow implements ItemListener{
     private JTextField playerOneTextField, playerTwoTextField, playerSpeedText, shotSpeedText, rotationSpeedText, numberShotsText;
     private JComboBox playerOneColorMenu, backgroundColorMenu, playerTwoColorMenu, cb;
     private String playerOneName, playerOneColor, playerTwoName, playerTwoColor, backgroundColor;
+    private int numberShots;
     
     public StartWindow(){
         comboBoxPane = new JPanel();
@@ -34,9 +35,9 @@ public class StartWindow implements ItemListener{
         playerOneColorMenu = new JComboBox(colors);
         playerTwoColorMenu = new JComboBox(colors);
         playerTwoTextField = new JTextField("Player 2", 10);
-        playerSpeedText = new JTextField(".5", 4);
-        shotSpeedText = new JTextField("2", 4);
-        rotationSpeedText = new JTextField(".25", 4);
+        playerSpeedText = new JTextField("1", 4);
+        shotSpeedText = new JTextField(".22", 4);
+        rotationSpeedText = new JTextField("1", 4);
         numberShotsText = new JTextField("3", 4);
         cards = new JPanel(new CardLayout());
     }
@@ -71,7 +72,7 @@ public class StartWindow implements ItemListener{
                 Players.setPlayerSpeed(Double.parseDouble(playerSpeedText.getText()));
                 Players.setRotationSpeed(Double.parseDouble(rotationSpeedText.getText()));
                 Shots.setShotSpeed(Double.parseDouble(shotSpeedText.getText()));
-                Players.setNumberShots(Integer.parseInt(numberShotsText.getText()));
+                Players.passNumberShots(Integer.parseInt(numberShotsText.getText()));
                 frame.dispose();
                 GameFrame.go();
             }
@@ -153,9 +154,6 @@ public class StartWindow implements ItemListener{
         });
         ////End of Card 3
         
-        
-        //Speed of players, speed of bullets, number of bullets on screen, rotation speed
-        
         ////Card 4
         JLabel playerSpeed = new JLabel();
         card4.add(playerSpeed);
@@ -181,9 +179,9 @@ public class StartWindow implements ItemListener{
         cards.add(card2, "Player 1");
         cards.add(card3, "Player 2");
         cards.add(card4, "Player Speed");
-        cards.add(card5, "Rotation Speed");
+        cards.add(card5, "Rot. Speed");
         cards.add(card6, "Shot Speed");
-        cards.add(card7, "Number of Shots");
+        cards.add(card7, "# of Shots");
          
         pane.add(comboBoxPane, BorderLayout.PAGE_START);
         pane.add(cards, BorderLayout.CENTER);

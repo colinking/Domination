@@ -6,24 +6,6 @@
  * December 2, 2012
  */
 
-/////Plans////
-//Spawnpoints
-//Player 2
-//Walls
-//Bounding Boxs
-//Flags
-//Add points when within flags
-//Score with Names
-//Timer
-//Pre-game timer
-//Explosions from collisions
-//Game Over Screen
-//Shooting
-//Health?
-//Fix Keyblocking -> KeyBinding
-//Overall Customiztion (Player speed, rotation speed, etc.)
-/////////////
-
 package domination;
 
 import java.awt.*;
@@ -34,10 +16,9 @@ import javax.swing.JFrame;
 public class GameFrame extends JFrame{
     
     //Player One and Two
-    private static Players p1 = new Players(100, 400, 1);
-    private static Players p2 = new Players(1050, 400, 2);
+    public static Players p1 = new Players(100, 400, 1);
+    public static Players p2 = new Players(1050, 400, 2);
     private static String bColor, p1Name, p2Name;
-    private static double shotSpeed, numberShots;
     
     //Getters & Setters
     public static void setBColor(String bColor){GameFrame.bColor = bColor;}
@@ -58,8 +39,7 @@ public class GameFrame extends JFrame{
     }
 
     //Constructor
-    public GameFrame(boolean shouldRun){
-        if(shouldRun == true){
+    public GameFrame(){
         this.setTitle("Domination");
         this.setSize(1200, 800);
         this.setResizable(false);
@@ -69,18 +49,18 @@ public class GameFrame extends JFrame{
         this.setVisible(true);
         this.addKeyListener(new AL());
         System.out.println("Start");
-        }
     }
 
     //Main method of GameFrame class
     public static void go() {
-        GameFrame m = new GameFrame(true);
+        GameFrame m = new GameFrame();
         Thread player1 = new Thread(p1);
         player1.start();
         Thread player2 = new Thread(p2);
         player2.start();
     }
     
+    //Moves multiple pixels in between each switch of the image?
     @Override
     public void paint(Graphics g){
         Image bfImage = createImage(1200, 800);
@@ -98,6 +78,28 @@ public class GameFrame extends JFrame{
             p1.die();
             p2.die();
         }
+    }
+    
+    public static Shots checkShots(Shots shot, int id){
+        switch(id){
+            case 1:
+                double dist = Math.sqrt(Math.pow(p1.getX()- shot.getX(), 2) + Math.pow(p1.getY() - shot.getY(), 2));
+                System.out.println(dist);
+                if(dist <= 22.5){
+//                    p2.die();
+//                    return null;
+                }
+                break;
+            case 2:
+                double d = Math.sqrt(Math.pow(p1.getX()- shot.getX(), 2) + Math.pow(p1.getY() - shot.getY(), 2));
+//                System.out.println(d);
+                if(d <= 22.5){
+//                    p1.die();
+//                    return null;
+                }
+                break;
+        }
+        return shot;
     }
     
     ////////EVENT LISTENER CLASS////////

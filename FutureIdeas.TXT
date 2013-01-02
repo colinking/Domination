@@ -1,0 +1,21 @@
+Future Ideas:
+
+===Green:
+
+Walls
+Flags
+Add points when within flags
+Score with Names
+Timer
+Game Over Screen
+
+===Yellow:
+
+Visual Spawnpoints
+Pre-game timer
+Explosions from collisions
+every second, check for pressed keys -or- multiple threads for key events?
+
+===Red:
+
+Health?
